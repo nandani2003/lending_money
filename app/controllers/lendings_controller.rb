@@ -3,7 +3,6 @@ class LendingsController < ApplicationController
   before_action :authenticate_user!
   def index
     @lendings=current_user.lendings
-
   end
 
   def show
@@ -31,6 +30,12 @@ class LendingsController < ApplicationController
     @lending=Lending.find(params[:id])
     @admin_user = AdminUser.first
     @user=current_user
+    unless current_user.customer?  
+      if @lending.amount != lending_params[:amount].to_f || @lending.interest_rate != lending_params[:interest_rate].to_f
+        @lending.update(state: "adjustment")
+        flash[:notice] = "Loan state changed to Adjustment."
+      end
+    end
     if params[:state] == "confirm"
       @lending.update(state: "open")
       flash[:notice] = "Loan state changed to Open." 
