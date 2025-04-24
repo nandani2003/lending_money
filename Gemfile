@@ -65,6 +65,6 @@ gem 'cancancan'
 # gem 'active_skin'
 gem 'arctic_admin'
 gem 'tailwindcss-rails'
-gem "sidekiq", "~> 7.3"
+gem "sidekiq", "~> 8.0"
 gem "sidekiq-cron"
 gem 'sinatra', require: nil
